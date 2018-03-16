@@ -8,9 +8,8 @@ class FormName(forms.Form):
     text = forms.CharField(widget=forms.Textarea)
 
     def clean(self):
-        clean_data = super().clean()
-        email = clean_data['email']
-        vmail = clean_data['verify']
+        email = self.cleaned_data.get('email')
+        vmail = self.cleaned_data.get('verify')
 
         if email != vmail:
             raise forms.ValidationError('Make sure emails are not matching')
